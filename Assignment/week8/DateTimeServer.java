@@ -1,37 +1,33 @@
 package week8;
-import java.util.*;
 import java.net.*;
+import java.util.*;
 
 public class DateTimeServer {
     public static void main(String[] args) {
-        
-        
         try {
-            Date now = new Date();
-            System.out.println("Current Time = " + now.toString());
-            byte[] sendBuffer;
-            DatagramSocket socket = new DatagramSocket (9876); 
+            // Create a socket on the specified port
+            DatagramSocket socket = new DatagramSocket (9876);
+            
             while(true) {
+                // Receive a packet
                 byte[] recvBuffer = new byte[8000];
-                DatagramPacket dp = new DatagramPacket(recvBuffer, 
-                                                       recvBuffer.length);                          
-                socket.receive(dp);
-                System.out.println("Client connect ..");
-
-                Date nowsend = new Date();
-                String msg = nowsend.toString();
-                sendBuffer = msg.getBytes();
-                DatagramPacket dp2 = new DatagramPacket(sendBuffer,
-                                                        sendBuffer.length,
-                                                        dp.getAddress(),
-                                                        dp.getPort());
-                socket.send(dp2);
+                DatagramPacket packet = new DatagramPacket(recvBuffer,recvBuffer.length);
+                socket.receive(packet);
                 
+                // Get the current time
+                Date now = new Date();
+                String msg = now.toString();
+                
+                // Send the time back to the client
+                byte[] sendBuffer = msg.getBytes();
+                DatagramPacket packet2 = new DatagramPacket(sendBuffer,
+                                                            sendBuffer.length,
+                                                            packet.getAddress(),
+                                                            packet.getPort());
+                socket.send(packet2);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-    
 }
