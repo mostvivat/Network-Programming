@@ -9,7 +9,7 @@ public class UDPServer {
 
             while (true) {
                 // กำหนดขนาดของ buffer สำหรับรับข้อมูล
-                byte[] recvBuffer = new byte[8000];
+                byte[] recvBuffer = new byte[512];
                 // สร้าง DatagramPacket สำหรับรับข้อมูล (buffer, buffer.length)
                 DatagramPacket receivePacket = new DatagramPacket(recvBuffer, recvBuffer.length);
 

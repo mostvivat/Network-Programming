@@ -5,29 +5,29 @@ import java.util.*;
 public class DateTimeServer {
     public static void main(String[] args) {
         try {
-            // Create a socket on the specified port
-            DatagramSocket socket = new DatagramSocket (9876);
+            // สร้าง DatagramSocket ที่ทำงานบน port 9876
+            DatagramSocket socket = new DatagramSocket(9876);
             
-            while(true) {
-                // Receive a packet
+            while(true) { // วน loop ตลอดเวลา
+                // รับ packet
                 byte[] recvBuffer = new byte[8000];
-                DatagramPacket packet = new DatagramPacket(recvBuffer,recvBuffer.length);
-                socket.receive(packet);
+                DatagramPacket packet = new DatagramPacket(recvBuffer, recvBuffer.length);
+                socket.receive(packet); // รับข้อมูลจาก client
                 
-                // Get the current time
+                // หาว่าตอนนี้เวลาเป็นเท่าไหร่
                 Date now = new Date();
                 String msg = now.toString();
                 
-                // Send the time back to the client
+                // ส่งเวลากลับไปที่ client
                 byte[] sendBuffer = msg.getBytes();
                 DatagramPacket packet2 = new DatagramPacket(sendBuffer,
                                                             sendBuffer.length,
                                                             packet.getAddress(),
                                                             packet.getPort());
-                socket.send(packet2);
+                socket.send(packet2); // ส่งข้อมูลกลับไปที่ client
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // พิมพ์ stack trace ถ้าเกิดข้อผิดพลาด
         }
     }
 }

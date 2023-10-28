@@ -3,11 +3,12 @@ import java.net.*;
 import java.util.concurrent.*;
 
 public class FileServer implements Runnable {
+    // สร้างตัวแปรชื่อ client เพื่อเก็บ Socket ที่เชื่อมต่อกับ Client
     Socket client;
+    // สร้าง Constructor โดยรับ Socket ที่เชื่อมต่อกับ Client แล้วเก็บไว้ในตัวแปรชื่อ client
     public FileServer(Socket client) {
         this.client = client;
     }
-
     @Override
     public void run() {
         try {
@@ -79,7 +80,6 @@ public class FileServer implements Runnable {
             e.printStackTrace();
         }
     }
-
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         ServerSocket serv = null;

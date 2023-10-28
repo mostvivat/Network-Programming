@@ -21,7 +21,7 @@ public class UDPClient {
             // ส่งข้อมูลไปยังเซิร์ฟเวอร์
             socket.send(sendPacket);
             // รับข้อมูลจากเซิร์ฟเวอร์
-            byte[] recvBuffer = new byte[8000];
+            byte[] recvBuffer = new byte[512];
             DatagramPacket receivePacket = new DatagramPacket(recvBuffer, recvBuffer.length);
             socket.receive(receivePacket);
             // แปลงข้อมูลที่ได้รับเป็น String และแสดงผล
